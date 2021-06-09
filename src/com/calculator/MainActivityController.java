@@ -1,4 +1,4 @@
-package sample;
+package com.calculator;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class Controller {
+public class MainActivityController {
 
     enum OPERATOR {
         PLUS, MINUS, MULTIPLY, DIVIDE, NULL
@@ -32,13 +32,17 @@ public class Controller {
     }
 
     public void c_ButtonOnAction() {
-        String displayText = display.getText();
-        display.setText(displayText.substring(0, displayText.length() - 1));
+        if (!display.getText().equals("")){
+            String displayText = display.getText();
+            display.setText(displayText.substring(0, displayText.length() - 1));
+        }
     }
 
     public void percent_ButtonOnAction() {
-        prepare.setText("Result");
-        display.setText(String.valueOf(Double.parseDouble(display.getText()) / 100.00));
+        if (!display.getText().equals("")) {
+            prepare.setText("Result");
+            display.setText(String.valueOf(Double.parseDouble(display.getText()) / 100.00));
+        }
     }
 
     public void dot_ButtonOnAction() {
@@ -49,6 +53,7 @@ public class Controller {
     }
 
     public void equals_ButtonOnAction() {
+        if (display.getText().equals("")) return;
         prepare.setText("Result");
         double number_2 = Double.parseDouble(display.getText());
         if (Operator == OPERATOR.PLUS) {
@@ -80,6 +85,7 @@ public class Controller {
     }
 
     public void operator_OnClickAction(ActionEvent actionEvent) {
+        if (display.getText().equals("")) return;
         opBoolean = true;
         number_1 = Double.parseDouble(display.getText());
         String operator = ((Button) actionEvent.getSource()).getText();
